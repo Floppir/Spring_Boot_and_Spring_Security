@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN PAGE</title>
+    <link th:href="@{/admin.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="table">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>UserName</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Age</th>
+            <th>Roles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="user : ${userList}">
+            <tr>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.roles}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+<form class="form1" action="#" th:action="@{/save_user}" th:object="${user}"
+      method="post" autocomplete="off">
+    <p style="margin-top: 10px">
+        Username
+    </p>
+    <label>
+        <input type="text" th:field="*{username}"/>
+    </label>
+    <p>
+        Password
+    </p>
+    <label>
+        <input type="text" th:field="*{password}"/>
+    </label>
+    <p>
+        Name
+    </p>
+    <label>
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <p>
+        LastName
+    </p>
+    <label>
+        <input type="text" th:field="*{lastName}"/>
+    </label>
+    <p>
+        Age
+    </p>
+    <label>
+        <input type="number" th:field="*{age}"/>
+    </label>
+    <label style="display: block">
+        <input type="checkbox"
+               th:each="role : ${allRoles}"
+               th:text="${role.name}"
+               th:value="${role.id}"
+               th:field="*{roles}"
+        />
+    </label>
+    <input class="input2" type="submit" value="Добавить пользователя"/>
+</form>
+<form class="form1" action="#" th:action="@{/update_user}" th:object="${user}"
+      method="post" autocomplete="off">
+    <p style="margin-top: 10px">
+        ID
+    </p>
+    <label>
+        <input type="number" th:field="*{id}"/>
+    </label>
+    <p>
+        Username
+    </p>
+    <label>
+        <input type="text" th:field="*{username}"/>
+    </label>
+    <p>
+        Name
+    </p>
+    <label>
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <p>
+        LastName
+    </p>
+    <label>
+        <input type="text" th:field="*{lastName}"/>
+    </label>
+    <p>
+        Age
+    </p>
+    <label>
+        <input type="number" th:field="*{age}"/>
+    </label>
+    <label style="display: block">
+        <input type="checkbox"
+               th:each="role : ${allRoles}"
+               th:text="${role.name}"
+               th:value="${role.id}"
+               th:field="*{roles}"
+        />
+    </label>
+    <input class="input2" type="submit" value="Обновить пользователя"/>
+</form>
+<form action="#" th:action="@{/delete_user}" th:object="${user}"
+      method="post" autocomplete="off">
+    <p style="margin-top: 10px">
+        ID
+    </p>
+    <label>
+        <input type="number" placeholder="id" th:field="*{id}"/>
+    </label>
+    <input class="input2" type="submit" value="Удалить пользователя"/>
+</form>
+<p th:text="${message}" style="display: flex;justify-content: center;margin-top: 30px">Default</p>
+
+<div class="wrapper">
+    <a href="/logout"><span>LOGOUT</span></a>
+</div>
+</body>
+</html>
